@@ -1,0 +1,62 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+permissions:
+  contents: read
+
+jobs:
+  frontend:
+    name: Frontend build
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: zhulong
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v6
+      - name: Set up Node.js
+        uses: actions/setup-node@v7
+        with:
+          node-version: '20'
+          cache: npm
+          cache-dependency-path: zhulong/package-lock.json
+      - name: Install dependencies
+        run: npm ci
+      - name: Build production frontend
+        run: npm run build
+
+  backend-policy:
+    name: Backend policy tests
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v6
+      - name: Set up Python
+        uses: actions/setup-python@v6
+        with:
+          python-version: '3.11'
+          cache: pip
+      - name: Install lightweight dependencies
+        run: python -m pip install -r requirements.txt
+      - name: Compile public Python source
+        run: python -m compileall -q article_verification.py unified_media_api.py scripts tests
+      - name: Run policy and API boundary tests
+        run: >-
+          python -m unittest -v
+          tests.test_api_boundary_policy
+          tests.test_article_verification
+          tests.test_eval_input_isolation
+          tests.test_eval_release_gates
+          tests.test_image_consensus_policy
+          tests.test_image_decision_policy
+          tests.test_image_release_policy
+          tests.test_report_path_security
+          tests.test_source_hint_policy
+          tests.test_upload_limits
+          tests.test_video_decision_policy
+          tests.test_video_eval_release_gates

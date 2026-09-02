@@ -1,0 +1,383 @@
+@use './variables.scss' as *;
+@use 'sass:color';
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html, body {
+  height: 100%;
+  background: #020511;
+  font-family: $font-family;
+  font-size: $font-size-base;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+#app {
+  height: 100%;
+  overflow: hidden;
+  background: #020511;
+}
+
+// 页面切换动画
+.page-transition {
+  .router-view {
+    transition: all $transition-normal;
+  }
+}
+
+// 通用工具类
+.glass-effect {
+  background: $glass-bg;
+  backdrop-filter: blur(10px);
+  border: 1px solid $glass-border;
+  box-shadow: $glass-shadow;
+}
+
+.fire-gradient {
+  background: $fire-gradient;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.btn-fire {
+  background: $fire-gradient;
+  border: none;
+  color: white;
+  font-weight: 500;
+  transition: all $transition-normal;
+  cursor: pointer;
+
+  &:hover {
+    transform: translateY(-2px);
+    box-shadow: $hover-shadow;
+  }
+
+  &:active {
+    transform: translateY(0);
+  }
+}
+
+// 动画类
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity $transition-normal;
+}
+
+.fade-enter-from,
+.fade-leave-to {
+  opacity: 0;
+}
+
+.slide-enter-active,
+.slide-leave-active {
+  transition: transform $transition-normal;
+}
+
+.slide-enter-from {
+  transform: translateX(-100%);
+}
+
+.slide-leave-to {
+  transform: translateX(100%);
+}
+
+// 页面切换动画：默认使用交叠式淡化；支持 View Transition 的浏览器会接管品牌共享元素。
+.page-enter-active,
+.page-leave-active {
+  transition:
+    opacity 360ms ease,
+    transform 520ms cubic-bezier(0.22, 1, 0.36, 1),
+    filter 420ms ease;
+  transform-origin: 50% 45%;
+}
+
+.page-enter-active {
+  position: relative;
+  z-index: 2;
+}
+
+.page-leave-active {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  width: 100%;
+}
+
+.page-enter-from {
+  opacity: 0;
+  filter: blur(5px);
+  transform: scale(0.992) translateY(8px);
+}
+
+.page-leave-to {
+  opacity: 0;
+  filter: blur(4px);
+  transform: scale(1.008);
+}
+
+.is-route-transitioning .page-enter-active,
+.is-route-transitioning .page-leave-active {
+  transition: none;
+}
+
+[data-route-transition-target='dashboard'] .login-container .brand-name,
+[data-route-transition-target='login'] .dashboard .brand-copy {
+  view-transition-name: none;
+}
+
+::view-transition-old(root) {
+  animation: zhulong-page-out 420ms cubic-bezier(0.4, 0, 0.2, 1) both;
+  mix-blend-mode: normal;
+}
+
+::view-transition-new(root) {
+  animation: zhulong-page-in 560ms cubic-bezier(0.22, 1, 0.36, 1) both;
+  mix-blend-mode: normal;
+}
+
+::view-transition-group(zhulong-wordmark) {
+  animation-duration: 560ms;
+  animation-timing-function: cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+::view-transition-old(zhulong-wordmark),
+::view-transition-new(zhulong-wordmark) {
+  mix-blend-mode: normal;
+}
+
+@keyframes zhulong-page-out {
+  from {
+    opacity: 1;
+    filter: none;
+    transform: scale(1);
+  }
+
+  to {
+    opacity: 0;
+    filter: blur(2px);
+    transform: scale(0.998);
+  }
+}
+
+@keyframes zhulong-page-in {
+  from {
+    opacity: 0;
+    filter: blur(3px);
+    transform: translateY(6px) scale(0.997);
+  }
+
+  to {
+    opacity: 1;
+    filter: none;
+    transform: scale(1);
+  }
+}
+
+// 悬停放大效果
+.hover-scale {
+  transition: transform $transition-normal;
+
+  &:hover {
+    transform: scale(1.05);
+  }
+}
+
+// 火焰按钮动画
+@keyframes fire-glow {
+  0%, 100% {
+    box-shadow: 0 0 5px rgba(230, 57, 70, 0.5);
+  }
+  50% {
+    box-shadow: 0 0 20px rgba(230, 57, 70, 0.8), 0 0 30px rgba(230, 57, 70, 0.6);
+  }
+}
+
+.btn-fire-animated {
+  animation: fire-glow 2s ease-in-out infinite;
+}
+
+// 脉冲动画
+@keyframes pulse {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.05);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+.pulse {
+  animation: pulse 2s ease-in-out infinite;
+}
+
+// 闪烁动画
+@keyframes blink {
+  0%, 50% {
+    opacity: 1;
+  }
+  51%, 100% {
+    opacity: 0.3;
+  }
+}
+
+.blink {
+  animation: blink 1s ease-in-out infinite;
+}
+
+// 滚动条样式
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: rgba(0, 0, 0, 0.1);
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: $accent-red;
+  border-radius: 3px;
+
+  &:hover {
+    background: color.adjust($accent-red, $lightness: -10%);
+  }
+}
+
+// 响应式工具类
+@media (max-width: $mobile) {
+  .mobile-hidden {
+    display: none !important;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .page-enter-active,
+  .page-leave-active {
+    transition: opacity 120ms linear;
+  }
+
+  .page-enter-from,
+  .page-leave-to {
+    filter: none;
+    transform: none;
+  }
+
+  ::view-transition-old(root),
+  ::view-transition-new(root),
+  ::view-transition-group(zhulong-wordmark) {
+    animation-duration: 120ms;
+  }
+}
+
+@media (min-width: $tablet) {
+  .tablet-hidden {
+    display: none !important;
+  }
+}
+
+.feedback-modal {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  display: grid;
+  place-items: center;
+  padding: 24px;
+  background: rgba(1, 5, 15, 0.68);
+  backdrop-filter: blur(12px);
+}
+
+.feedback-modal .feedback-form {
+  width: min(420px, 100%);
+  display: grid;
+  gap: 14px;
+  padding: 22px;
+  border: 1px solid rgba(196, 232, 238, 0.18);
+  border-radius: 16px;
+  color: #f7f4ec;
+  background:
+    linear-gradient(180deg, rgba(9, 22, 42, 0.94), rgba(2, 9, 22, 0.96)),
+    radial-gradient(circle at 50% 0%, rgba(246, 215, 135, 0.08), transparent 52%);
+  box-shadow: 0 28px 90px rgba(0, 0, 0, 0.46), inset 0 1px 0 rgba(255, 255, 255, 0.08);
+}
+
+.feedback-modal .feedback-form .row {
+  display: grid !important;
+  align-items: stretch !important;
+  gap: 8px;
+}
+
+.feedback-modal label {
+  color: rgba(247, 244, 236, 0.78);
+  font-weight: 700;
+}
+
+.feedback-modal select,
+.feedback-modal textarea {
+  width: 100%;
+  border: 1px solid rgba(164, 222, 233, 0.18);
+  border-radius: 10px;
+  color: #fff8e9;
+  background: rgba(1, 8, 21, 0.62);
+  font: inherit;
+}
+
+.feedback-modal select {
+  height: 42px;
+  padding: 0 12px;
+}
+
+.feedback-modal textarea {
+  min-height: 92px;
+  padding: 10px 12px;
+  resize: vertical;
+}
+
+.feedback-modal select:focus,
+.feedback-modal textarea:focus {
+  outline: none;
+  border-color: rgba(240, 184, 91, 0.72);
+  box-shadow: 0 0 0 4px rgba(240, 184, 91, 0.13);
+}
+
+.feedback-modal .feedback-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+  margin-top: 0;
+}
+
+.feedback-modal .fb-submit,
+.feedback-modal .fb-cancel {
+  min-height: 38px;
+  border-radius: 10px;
+  padding: 0 14px;
+  cursor: pointer;
+  font-weight: 800;
+}
+
+.feedback-modal .fb-submit {
+  border: 0;
+  color: #15140f;
+  background: #d8bd72;
+}
+
+.feedback-modal .fb-cancel {
+  border: 1px solid rgba(128, 215, 232, 0.22);
+  color: rgba(247, 244, 236, 0.78);
+  background: rgba(255, 255, 255, 0.06);
+}
+
+.feedback-modal .fb-toast {
+  color: #9fe8f2;
+  font-size: 12px;
+}

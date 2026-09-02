@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="烛龙：本地优先的 AI 内容风险分析工作台。" />
+  <link rel="icon" type="image/svg+xml" href="/default-avatar.svg" />
+  <title>烛龙 · AI 内容风险分析工作台</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+</head>
+<body>
+  <div id="app">
+    <main class="boot-screen" aria-live="polite">
+      <strong>烛龙</strong>
+      <span>正在加载本地系统…</span>
+    </main>
+  </div>
+  <script type="module" src="/src/main.js"></script>
+  <style>
+    html,
+    body {
+      margin: 0;
+      min-height: 100%;
+      background: #020712;
+    }
+
+    .boot-screen,
+    .boot-error {
+      min-height: 100vh;
+      display: grid;
+      place-content: center;
+      justify-items: center;
+      gap: 12px;
+      color: rgba(244, 248, 255, 0.76);
+      background:
+        radial-gradient(circle at 50% 44%, rgba(42, 141, 204, 0.16), transparent 34%),
+        #020712;
+      font-family: "Noto Sans SC", "Microsoft YaHei", sans-serif;
+    }
+
+    .boot-screen strong,
+    .boot-error strong {
+      color: #f1cf75;
+      font-size: clamp(42px, 6vw, 72px);
+      letter-spacing: 0.12em;
+    }
+
+    .boot-screen span,
+    .boot-error span {
+      font-size: 14px;
+      letter-spacing: 0.08em;
+    }
+  </style>
+</body>
+</html>

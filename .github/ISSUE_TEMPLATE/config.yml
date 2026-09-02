@@ -1,0 +1,5 @@
+blank_issues_enabled: false
+contact_links:
+  - name: Security vulnerability
+    url: https://github.com/GodIceman/zhulong-ai-risk-workbench/security/advisories/new
+    about: Report security and privacy issues privately. Do not disclose them in a public issue.

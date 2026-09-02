@@ -1,0 +1,33 @@
+{
+  "name": "zhulong-ai-risk-workbench",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "烛龙：本地优先的 AI 内容风险分析工作台",
+  "engines": {
+    "node": ">=20.19.0"
+  },
+  "scripts": {
+    "dev": "node scripts/start-with-models.cjs",
+    "dev:frontend": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
+    "serve": "vite preview"
+  },
+  "dependencies": {
+    "@lucide/vue": "^1.24.0",
+    "crypto-js": "^4.1.1",
+    "exif-js": "^2.3.0",
+    "localforage": "^1.10.0",
+    "lru-cache": "^7.18.3",
+    "pinia": "^2.1.6",
+    "three": "^0.185.0",
+    "vue": "^3.3.4",
+    "vue-router": "^4.2.4"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-vue": "^6.0.8",
+    "sass": "^1.92.1",
+    "vite": "^8.2.2"
+  }
+}

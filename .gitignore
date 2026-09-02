@@ -1,0 +1,86 @@
+# Local environments and dependency caches
+.venv/
+.venv-*/
+venv/
+env/
+.python-version
+.venv-name
+__pycache__/
+*.py[cod]
+*.egg-info/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.coverage*
+htmlcov/
+
+# Frontend dependencies and generated output
+**/node_modules/
+**/.vite/
+**/dist/
+**/build/
+coverage/
+
+# Secrets, credentials, and machine-local configuration
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+*.p12
+*.pfx
+*.keystore
+*.jks
+credentials*.json
+service-account*.json
+.npmrc
+local.properties
+
+# Local tools and assistant state
+.agents/
+.claude/
+.codex/
+.idea/
+.vscode/
+*.code-workspace
+
+# User uploads, reports, logs, caches, and audit output
+uploads/
+logs/
+tmp/
+temp/
+*.log
+*.tmp
+*.bak
+*.backup
+*.zip
+*.7z
+*.rar
+
+# Local model weights and Hugging Face caches
+data/
+*.ckpt
+*.pt
+*.pth
+*.bin
+*.safetensors
+*.onnx
+*.keras
+*.h5
+
+# Evaluation media may contain real people, device metadata, or restricted data
+eval/
+
+# Third-party repositories are cloned at pinned revisions by setup scripts
+third_party/
+DEEPFAKE_DETECTION_MODEL-main/
+
+# Product iteration material retained locally, not part of the public source
+zhulong/backups/
+docs/*.md
+启动说明.md
+
+# OS noise
+.DS_Store
+Thumbs.db
+desktop.ini

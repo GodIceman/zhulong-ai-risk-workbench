@@ -1,0 +1,31 @@
+name: Feature request
+description: Propose a focused, testable improvement
+title: '[Feature] '
+labels: [enhancement]
+body:
+  - type: textarea
+    id: problem
+    attributes:
+      label: User problem
+      description: Describe the decision or workflow that is hard today.
+    validations:
+      required: true
+  - type: textarea
+    id: proposal
+    attributes:
+      label: Proposed change
+      description: Keep the proposal consistent with abstention-first risk triage rather than authenticity certification.
+    validations:
+      required: true
+  - type: textarea
+    id: evidence
+    attributes:
+      label: Acceptance evidence
+      description: What tests, metrics, or privacy-safe examples would show that this works?
+    validations:
+      required: true
+  - type: textarea
+    id: risks
+    attributes:
+      label: Risks and limitations
+      description: Note false-positive, privacy, licensing, dependency, and scope risks.
